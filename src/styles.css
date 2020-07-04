@@ -324,7 +324,12 @@ router-outlet + * {
   margin-bottom: 0;
 }
 
-.panel-content div span {
+p-inputswitch > div {
+  position: relative;
+  top: 7px;
+}
+
+.tag {
   width: 30px;
   height: 30px;
   color: white;

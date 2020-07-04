@@ -9,6 +9,8 @@ import {ToolbarComponent} from './shared/toolbar/toolbar.component';
 import {HeaderComponent} from './shared/header/header.component';
 import {CreateTypeComponent} from './pages/create-type/create-type.component';
 import {CreateFieldComponent} from './pages/create-field/create-field.component';
+import {FormsModule} from '@angular/forms';
+import {InputSwitchModule} from 'primeng/inputswitch';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import {CreateFieldComponent} from './pages/create-field/create-field.component'
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    InputSwitchModule,
+    FormsModule
   ],
   providers: [AtlasService],
   bootstrap: [AppComponent]

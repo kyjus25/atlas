@@ -6,60 +6,11 @@
       <div class="panel-header"><b>Field Type</b></div>
       <div class="panel-content">
         <table>
-          <tr class="active">
-            <td><span class="string">Ab</span></td>
-            <td><b>String</b></td>
-            <td>Plain text input.</td>
-          </tr>
-          <tr>
-            <td><span class="number">123</span></td>
-            <td><b>Number</b></td>
-            <td>Numbers only, please.</td>
-          </tr>
-          <tr>
-            <td><i class="fas wysiwyg fa-paragraph"></i></td>
-            <td><b>WYSIWYG</b></td>
-            <td>Full text editor.</td>
-          </tr>
-          <tr>
-            <td><i class="fas color fa-eye-dropper"></i></td>
-            <td><b>Color</b></td>
-            <td>Pick a color, any color.</td>
-          </tr>
-          <tr>
-            <td><i class="fas select fa-tasks"></i></td>
-            <td><b>Select</b></td>
-            <td>Make your choice.</td>
-          </tr>
-          <tr>
-            <td><i class="fas boolean fa-toggle-on"></i></td>
-            <td><b>Boolean</b></td>
-            <td>True or false. Yes or no.</td>
-          </tr>
-          <tr>
-            <td><i class="fas image fa-image"></i></td>
-            <td><b>Image</b></td>
-            <td>A place to upload puppy pics.</td>
-          </tr>
-          <tr>
-            <td><span class="json">{{ '{}' }}</span></td>
-            <td><b>JSON</b></td>
-            <td>For you coders out there.</td>
-          </tr>
-          <tr>
-            <td><i class="fas textarea fa-align-left"></i></td>
-            <td><b>Textarea</b></td>
-            <td>Plan textarea input box.</td>
-          </tr>
-          <tr>
-            <td><i class="fas relation fa-link"></i></td>
-            <td><b>Relation</b></td>
-            <td>Link this content type to another.</td>
-          </tr>
-          <tr>
-            <td><i class="fas date fa-calendar"></i></td>
-            <td><b>Date</b></td>
-            <td>Select a date.</td>
+          <tr *ngFor="let field of data.fields" (click)="activeFieldType = field['name'].toLowerCase()" class="{{activeFieldType === field['name'].toLowerCase() ? 'active' : null}}">
+            <td *ngIf="field['icon'].indexOf('fas') === -1"><span class="{{field['name'].toLowerCase()}}">{{field['icon']}}</span></td>
+            <td *ngIf="field['icon'].indexOf('fas') > -1"><i class="{{field['icon']}} {{field['name'].toLowerCase()}}"></i></td>
+            <td><b>{{field['name']}}</b></td>
+            <td>{{field['desc']}}</td>
           </tr>
         </table>
       </div>
@@ -68,8 +19,24 @@
       <div class="panel-header"><b>Properties</b></div>
       <div class="panel-content">
         <div>
-          <span><i class="fas fa-tag"></i></span>
-          <input type="text" placeholder="Label">
+<!--          <span class="tag"><i class="fas fa-tag"></i></span>-->
+          <b>Label:</b><br>
+          <input type="text">
+
+          <br><br>
+
+          <b>Required:</b><br>
+          <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
+
+          <ng-container *ngIf="activeFieldType === 'select'">
+            <br><br>
+            <b>Allow multiple selections</b><br>
+            <p-inputSwitch [(ngModel)]="multiselect"></p-inputSwitch>
+            <br><br>
+            <b>Options. 1 option per row.</b><br>
+            <textarea style="width: 100%; height: 100px;"></textarea>
+          </ng-container>
+
         </div>
         <div class="btn">Save</div>
       </div>
