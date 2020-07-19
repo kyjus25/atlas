@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {AtlasService} from '../../shared/atlas.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-create-field',
@@ -8,11 +10,27 @@ import {AtlasService} from '../../shared/atlas.service';
 })
 export class CreateFieldComponent {
 
-  constructor(public data: AtlasService) {}
+  constructor(
+    public data: AtlasService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private messageService: MessageService
+  ) {}
 
   public activeFieldType = 'string';
-
-  public checked = true;
-
+  public label: '';
+  public required = true;
   public multiselect = false;
+  public options = '';
+
+  public submit() {
+    this.messageService.add({severity: 'warn', summary: 'One or more fields empty', detail: 'Please make sure all fields are filled out.'});
+
+    this.data.newContentType.fields.push({
+      label: this.label,
+      type: this.activeFieldType,
+      required: this.required
+    });
+    this.router.navigate(['../'], {relativeTo: this.route}).then();
+  }
 }

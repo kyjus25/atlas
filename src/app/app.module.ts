@@ -11,6 +11,10 @@ import {CreateTypeComponent} from './pages/create-type/create-type.component';
 import {CreateFieldComponent} from './pages/create-field/create-field.component';
 import {FormsModule} from '@angular/forms';
 import {InputSwitchModule} from 'primeng/inputswitch';
+import {ButtonModule} from 'primeng/button';
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -25,9 +29,12 @@ import {InputSwitchModule} from 'primeng/inputswitch';
     BrowserModule,
     AppRoutingModule,
     InputSwitchModule,
-    FormsModule
+    FormsModule,
+    ButtonModule,
+    ToastModule,
+    BrowserAnimationsModule
   ],
-  providers: [AtlasService],
+  providers: [AtlasService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

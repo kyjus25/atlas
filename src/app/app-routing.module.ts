@@ -6,9 +6,10 @@ import {CreateFieldComponent} from './pages/create-field/create-field.component'
 
 
 const routes: Routes = [
-  {path: 'create/type/content', component: CreateTypeComponent, data: {type: 'content'}},
-  {path: 'create/type/singleton', component: CreateTypeComponent, data: {type: 'singleton'}},
-  {path: 'create/field', component: CreateFieldComponent},
+  {path: 'create/content', component: CreateTypeComponent, data: {type: 'content'}},
+  {path: 'create/singleton', component: CreateTypeComponent, data: {type: 'singleton'}},
+  {path: 'create/content/field', component: CreateFieldComponent, data: {type: 'content'}},
+  {path: 'create/singleton/field', component: CreateFieldComponent, data: {type: 'singleton'}},
   {path: '', component: DashboardComponent, pathMatch: 'full'},
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];

@@ -6,7 +6,17 @@ export class AtlasService {
   public contentTypes = [];
   public singletons = [];
 
-  public newContentType = {};
+  public blankContentType = {
+    name: '',
+    icon: '',
+    fields: []
+  };
+
+  public newContentType = {
+    name: '',
+    icon: '',
+    fields: []
+  };
 
 
   public fields = [

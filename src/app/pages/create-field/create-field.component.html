@@ -21,12 +21,12 @@
         <div>
 <!--          <span class="tag"><i class="fas fa-tag"></i></span>-->
           <b>Label:</b><br>
-          <input type="text">
+          <input type="text" [(ngModel)]="label">
 
           <br><br>
 
           <b>Required:</b><br>
-          <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
+          <p-inputSwitch [(ngModel)]="required"></p-inputSwitch>
 
           <ng-container *ngIf="activeFieldType === 'select'">
             <br><br>
@@ -34,12 +34,13 @@
             <p-inputSwitch [(ngModel)]="multiselect"></p-inputSwitch>
             <br><br>
             <b>Options. 1 option per row.</b><br>
-            <textarea style="width: 100%; height: 100px;"></textarea>
+            <textarea [(ngModel)]="options" style="width: 100%; height: 100px;"></textarea>
           </ng-container>
 
         </div>
-        <div class="btn">Save</div>
+        <div class="btn" (click)="submit()">Save</div>
       </div>
     </div>
   </div>
 </article>
+<p-toast></p-toast>
