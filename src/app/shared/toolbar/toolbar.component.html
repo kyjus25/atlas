@@ -8,7 +8,7 @@
             <li class="none">No content types created :(</li>
           </ng-container>
           <ng-container *ngIf="atlas.contentTypes.length > 0">
-            <li *ngFor="let contentType of atlas.contentTypes">
+            <li *ngFor="let contentType of atlas.contentTypes" [routerLink]="'/create/content/' + contentType.id">
               <i class="{{contentType.icon}}"></i><span>{{contentType.name}}</span><i class="fas fa-angle-right"></i>
             </li>
           </ng-container>

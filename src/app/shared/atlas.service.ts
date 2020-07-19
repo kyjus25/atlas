@@ -1,10 +1,20 @@
 import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {combineLatest} from 'rxjs';
+import {first} from 'rxjs/operators';
 
 @Injectable()
 export class AtlasService {
 
+  public backendUrl = 'http://localhost:8080';
+
+  public me;
   public contentTypes = [];
   public singletons = [];
+
+  public token;
+  public loading = true;
 
   public blankContentType = {
     name: '',
@@ -18,6 +28,7 @@ export class AtlasService {
     fields: []
   };
 
+  public activeContentType;
 
   public fields = [
     {
@@ -77,7 +88,77 @@ export class AtlasService {
     },
   ];
 
-  constructor() {
-    console.log('initialized');
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {
+    this.getToken();
+    this.getData();
+  }
+
+  public saveContentType(id?) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        authtoken: this.token
+      })
+    };
+    if (id) {
+      this.http.put(this.backendUrl + '/services/contentType/' + id, this.activeContentType, httpOptions).subscribe(res => {
+        this.getData();
+      });
+    } else {
+      this.http.post(this.backendUrl + '/services/contentType', this.activeContentType, httpOptions).subscribe(res => {
+        this.newContentType = this.blankContentType;
+        this.getData();
+      });
+    }
+  }
+
+  public getData() {
+    if (this.token) {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          authtoken: this.token
+        })
+      };
+      combineLatest(
+        this.http.get(this.backendUrl + '/services/user/me', httpOptions),
+        this.http.get(this.backendUrl + '/services/contentType', httpOptions),
+      ).subscribe(([me, contentTypes]) => {
+        console.log('me', me);
+        console.log('contentTypes', contentTypes);
+        this.me = me;
+        this.contentTypes = contentTypes as any[];
+        this.loading = false;
+      });
+    }
+  }
+
+  public auth(username, password) {
+    return this.http.post(this.backendUrl + '/services/auth/login', {username, password});
+  }
+
+  public setToken(token) {
+    this.token = token;
+    try {
+      localStorage.setItem('token', token);
+    } catch (e) {
+      return;
+    }
+    this.getData();
+  }
+
+  public getToken() {
+    try {
+      this.token = localStorage.getItem('token');
+      if (!this.token) {
+        this.router.navigate(['/login']).then();
+        this.loading = false;
+      }
+    } catch (e) {
+      return;
+    }
   }
 }

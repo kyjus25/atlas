@@ -13,8 +13,11 @@ import {FormsModule} from '@angular/forms';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {ButtonModule} from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
-import {MessageService} from 'primeng/api';
+import {ConfirmationService, MessageService} from 'primeng/api';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {LoginComponent} from './pages/login/login.component';
+import {HttpClientModule} from '@angular/common/http';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [
@@ -23,18 +26,21 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ToolbarComponent,
     HeaderComponent,
     CreateTypeComponent,
-    CreateFieldComponent
+    CreateFieldComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     InputSwitchModule,
+    HttpClientModule,
     FormsModule,
     ButtonModule,
     ToastModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ConfirmDialogModule
   ],
-  providers: [AtlasService, MessageService],
+  providers: [AtlasService, MessageService, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

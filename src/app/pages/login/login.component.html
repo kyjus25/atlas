@@ -1,1 +1,17 @@
-Header
+<div id="wrapper">
+  <div class="panel">
+    <div class="panel-header"><b>Account Login</b></div>
+    <div class="panel-content">
+      <div>
+        <span><i class="fas fa-user"></i></span>
+        <input [(ngModel)]="username" type="text" placeholder="Username">
+      </div>
+      <div>
+        <span><i class="fas fa-key"></i></span>
+        <input [(ngModel)]="password" type="password" placeholder="Password">
+      </div>
+      <div class="btn" (click)="submit()">Log In</div>
+    </div>
+  </div>
+</div>
+<p-toast></p-toast>

@@ -3,7 +3,7 @@
   <app-header></app-header>
   <div id="wrapper">
     <div class="panel">
-      <div class="panel-header"><b>New Content Type</b></div>
+      <div class="panel-header"><b>{{mode === 'new' ? 'New' : 'Edit'}} Content Type</b></div>
       <div class="panel-content">
         <div>
           <span><i class="fas fa-tag"></i></span>
@@ -17,17 +17,18 @@
           </select>
         </div>
         <div class="btn" (click)="submit()">Save</div>
+        <div class="btn red" (click)="delete()">Delete</div>
       </div>
     </div>
     <div class="panel">
-      <div class="panel-header"><b>Fields</b> ({{atlas.newContentType.fields.length}}) <i class="fas fa-plus" (click)="addField()"></i></div>
+      <div class="panel-header"><b>Fields</b> ({{atlas.activeContentType.fields.length}}) <i class="fas fa-plus" (click)="addField()"></i></div>
       <div class="panel-content">
         <table>
-          <tr *ngIf="atlas.newContentType.fields.length === 0">
+          <tr *ngIf="atlas.activeContentType.fields.length === 0">
             <td>No fields to display. Click the + to add fields.</td>
             <td></td>
           </tr>
-          <tr *ngFor="let field of atlas.newContentType.fields">
+          <tr *ngFor="let field of atlas.activeContentType.fields">
             <td>
               <span *ngIf="field.type === 'string'" class="string">Ab</span>
               <span *ngIf="field.type === 'number'" class="number">123</span>
@@ -53,3 +54,5 @@
     </div>
   </div>
 </article>
+<p-toast></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

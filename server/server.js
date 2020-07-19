@@ -156,8 +156,8 @@ app.get('/services/contentType', (req, res) => {
     if (decoded && (current_time < decoded.exp)) {
       // ACTUALLY DO THE THING
       ContentType.find(function (err, found) {
-        if (err) return res.status(404).send({ error: 'Unable to return content types.' });
-        if (!found || found.length === 0) return res.status(404).send({ error: 'Unable to return content types.' });
+        if (err) return res.status(404).send([{ error: 'Unable to return content types.' }]);
+        if (!found || found.length === 0) return res.send([]);
         return res.send(found);
       });
     } else {

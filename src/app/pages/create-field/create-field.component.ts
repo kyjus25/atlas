@@ -11,7 +11,7 @@ import {MessageService} from 'primeng/api';
 export class CreateFieldComponent {
 
   constructor(
-    public data: AtlasService,
+    public atlas: AtlasService,
     private route: ActivatedRoute,
     private router: Router,
     private messageService: MessageService
@@ -24,13 +24,15 @@ export class CreateFieldComponent {
   public options = '';
 
   public submit() {
-    this.messageService.add({severity: 'warn', summary: 'One or more fields empty', detail: 'Please make sure all fields are filled out.'});
-
-    this.data.newContentType.fields.push({
-      label: this.label,
-      type: this.activeFieldType,
-      required: this.required
-    });
-    this.router.navigate(['../'], {relativeTo: this.route}).then();
+    if (this.label && this.label !== '') {
+      this.atlas.activeContentType.fields.push({
+        label: this.label,
+        type: this.activeFieldType,
+        required: this.required
+      });
+      this.router.navigate(['../'], {relativeTo: this.route}).then();
+    } else {
+      this.messageService.add({severity: 'warn', summary: 'One or more fields empty', detail: 'Please make sure all fields are filled out.'});
+    }
   }
 }

@@ -20,6 +20,11 @@ b {
   color: white;
 }
 
+.btn.red {
+  background-color: darkred;
+  margin-left: 10px;
+}
+
 .btn:hover {
   opacity: 0.8;
   cursor: pointer;
@@ -32,12 +37,29 @@ h1 {
   font-size: 26px;
 }
 
+app-login {
+  background-color: #272c33;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+app-login .panel {
+  width: 500px !important;
+  margin: 0;
+}
+
 #wrapper > div {
   display: inline-block;
 }
 
 #wrapper .panel {
   vertical-align: top;
+}
+
+#wrapper .panel input,
+#wrapper .panel select {
+  margin-left: 10px;
 }
 
 #wrapper .panel:nth-of-type(1) {

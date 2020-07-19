@@ -6,7 +6,7 @@
       <div class="panel-header"><b>Field Type</b></div>
       <div class="panel-content">
         <table>
-          <tr *ngFor="let field of data.fields" (click)="activeFieldType = field['name'].toLowerCase()" class="{{activeFieldType === field['name'].toLowerCase() ? 'active' : null}}">
+          <tr *ngFor="let field of atlas.fields" (click)="activeFieldType = field['name'].toLowerCase()" class="{{activeFieldType === field['name'].toLowerCase() ? 'active' : null}}">
             <td *ngIf="field['icon'].indexOf('fas') === -1"><span class="{{field['name'].toLowerCase()}}">{{field['icon']}}</span></td>
             <td *ngIf="field['icon'].indexOf('fas') > -1"><i class="{{field['icon']}} {{field['name'].toLowerCase()}}"></i></td>
             <td><b>{{field['name']}}</b></td>
