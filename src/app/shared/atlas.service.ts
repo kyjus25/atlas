@@ -115,6 +115,19 @@ export class AtlasService {
     }
   }
 
+  public deleteContentType(id) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        authtoken: this.token
+      })
+    };
+    this.http.delete(this.backendUrl + '/services/contentType/' + id, httpOptions).subscribe(res => {
+      this.getData();
+      this.router.navigate(['/dashboard']).then();
+    });
+  }
+
   public getData() {
     if (this.token) {
       const httpOptions = {

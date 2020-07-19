@@ -56,7 +56,7 @@ export class CreateTypeComponent {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to perform this action?',
       accept: () => {
-        console.log('confirmed');
+        this.atlas.deleteContentType(this.atlas.activeContentType.id);
       }
     });
   }

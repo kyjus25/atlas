@@ -17,7 +17,7 @@
           </select>
         </div>
         <div class="btn" (click)="submit()">Save</div>
-        <div class="btn red" (click)="delete()">Delete</div>
+        <div *ngIf="mode === 'edit'" class="btn red" (click)="delete()">Delete</div>
       </div>
     </div>
     <div class="panel">
