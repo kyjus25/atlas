@@ -79,6 +79,43 @@ app-login .panel {
   width: 50%;
 }
 
+#wrapper .panel.full-width {
+  width: auto;
+  display: block;
+  margin-right: 20px;
+}
+#wrapper .panel.full-width table tr {
+  display: table-row;
+  width: auto;
+  border: none;
+  padding: 15px;
+  cursor: default;
+}
+
+#wrapper .panel.full-width table tr:hover {
+  background: none;
+}
+
+#wrapper .panel.full-width table td {
+  display: table-cell;
+  color: black;
+  text-align: left;
+}
+
+#wrapper .panel.full-width table td:first-of-type {
+  width: 30px;
+  text-align: center;
+}
+
+#wrapper .panel.full-width table td:last-of-type {
+  text-align: right;
+}
+
+
+#wrapper .panel.full-width table td i {
+  color: black;
+}
+
 #wrapper.center {
   display: flex;
   align-items: center;

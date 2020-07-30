@@ -18,6 +18,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LoginComponent} from './pages/login/login.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {TableModule} from 'primeng/table';
+import {WebsitesComponent} from './pages/websites/websites.component';
+import {TokensComponent} from './pages/tokens/tokens.component';
+import {DialogModule} from 'primeng/dialog';
+import {CreateContentComponent} from './pages/create-content/create-content.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +32,10 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     HeaderComponent,
     CreateTypeComponent,
     CreateFieldComponent,
-    LoginComponent
+    WebsitesComponent,
+    TokensComponent,
+    LoginComponent,
+    CreateContentComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +46,9 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     ButtonModule,
     ToastModule,
     BrowserAnimationsModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TableModule,
+    DialogModule
   ],
   providers: [AtlasService, MessageService, ConfirmationService],
   bootstrap: [AppComponent]

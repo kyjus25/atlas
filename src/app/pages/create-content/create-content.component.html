@@ -1,0 +1,29 @@
+<app-toolbar></app-toolbar>
+<article>
+  <app-header></app-header>
+  <div id="wrapper">
+    <div class="panel full-width">
+      <div class="panel-header"><b>Websites</b> <i class="fas fa-plus"></i></div>
+      <div class="panel-content">
+        <table>
+          <tr *ngIf="atlas.websites.length === 0">
+            <td>No websites to display. Click the + to add websites.</td>
+            <td></td>
+          </tr>
+          <tr *ngFor="let website of atlas.websites">
+            <td>
+              <i class="fas fa-globe-americas"></i>
+            </td>
+            <td>{{website.name}}</td>
+            <td>
+              <i class="fas fa-pencil-alt"></i>
+              <i class="fas fa-trash"></i>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</article>
+<p-toast></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

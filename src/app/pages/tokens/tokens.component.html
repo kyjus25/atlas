@@ -1,0 +1,29 @@
+<app-toolbar></app-toolbar>
+<article>
+  <app-header></app-header>
+  <div id="wrapper">
+    <div class="panel">
+      <div class="panel-header"><b>API Tokens</b></div>
+      <div class="panel-content">
+        <table>
+          <tr *ngIf="atlas.websites.length === 0">
+            <td>No tokens to display. Click the + to add tokens.</td>
+            <td></td>
+          </tr>
+          <tr *ngFor="let token of atlas.tokens">
+            <td>
+              <i class="fas fa-globe-americas"></i>
+            </td>
+            <td>{{token.label}}</td>
+            <td>
+              <i class="fas fa-pencil-alt"></i>
+              <i class="fas fa-trash"></i>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</article>
+<p-toast></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

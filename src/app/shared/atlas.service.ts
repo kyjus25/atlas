@@ -6,14 +6,14 @@ import {first} from 'rxjs/operators';
 
 @Injectable()
 export class AtlasService {
+  public backendUrl = 'http://localhost';
 
-  public backendUrl = 'http://localhost:8080';
-
-  public me;
+  public tokens = [];
+  public websites = [];
   public contentTypes = [];
   public singletons = [];
 
-  public token;
+  public principal;
   public loading = true;
 
   public blankContentType = {
@@ -92,15 +92,27 @@ export class AtlasService {
     private http: HttpClient,
     private router: Router
   ) {
-    this.getToken();
+    this.getPrincipal();
     this.getData();
+  }
+
+  public saveWebsite(name) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        authtoken: this.principal.token
+      })
+    };
+    this.http.post(this.backendUrl + '/services/website', {name}, httpOptions).subscribe(res => {
+      this.getData();
+    });
   }
 
   public saveContentType(id?) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        authtoken: this.token
+        authtoken: this.principal.token
       })
     };
     if (id) {
@@ -119,7 +131,7 @@ export class AtlasService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        authtoken: this.token
+        authtoken: this.principal.token
       })
     };
     this.http.delete(this.backendUrl + '/services/contentType/' + id, httpOptions).subscribe(res => {
@@ -129,21 +141,21 @@ export class AtlasService {
   }
 
   public getData() {
-    if (this.token) {
+    if (this.principal && this.principal.token) {
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
-          authtoken: this.token
+          authtoken: this.principal.token
         })
       };
       combineLatest(
-        this.http.get(this.backendUrl + '/services/user/me', httpOptions),
-        this.http.get(this.backendUrl + '/services/contentType', httpOptions),
-      ).subscribe(([me, contentTypes]) => {
-        console.log('me', me);
+        this.http.get(this.backendUrl + '/services/website', httpOptions),
+        this.http.get(this.backendUrl + '/services/contentType', httpOptions)
+      ).subscribe(([websites, contentTypes]) => {
         console.log('contentTypes', contentTypes);
-        this.me = me;
+        console.log('websites', websites);
         this.contentTypes = contentTypes as any[];
+        this.websites = websites as any[];
         this.loading = false;
       });
     }
@@ -153,20 +165,20 @@ export class AtlasService {
     return this.http.post(this.backendUrl + '/services/auth/login', {username, password});
   }
 
-  public setToken(token) {
-    this.token = token;
+  public setPrincipal(principal) {
+    this.principal = principal;
     try {
-      localStorage.setItem('token', token);
+      localStorage.setItem('principal', JSON.stringify(principal));
     } catch (e) {
       return;
     }
     this.getData();
   }
 
-  public getToken() {
+  public getPrincipal() {
     try {
-      this.token = localStorage.getItem('token');
-      if (!this.token) {
+      this.principal = JSON.parse(localStorage.getItem('principal'));
+      if (!this.principal) {
         this.router.navigate(['/login']).then();
         this.loading = false;
       }

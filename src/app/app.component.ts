@@ -8,6 +8,6 @@ import {AtlasService} from './shared/atlas.service';
 })
 export class AppComponent {
   constructor(
-    private atlas: AtlasService
+    public atlas: AtlasService
   ) {}
 }

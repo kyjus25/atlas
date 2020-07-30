@@ -23,7 +23,7 @@ export class CreateTypeComponent {
     private confirmationService: ConfirmationService
   ) {
     this.route.params.subscribe(params => {
-      if (params && params.id) {
+      if (params && params.id && params.id !== 'new') {
         console.log('id', params.id);
         console.log('all content types', this.atlas.contentTypes);
         this.atlas.activeContentType = this.atlas.contentTypes.find(ct => ct.id === params.id);
@@ -46,6 +46,7 @@ export class CreateTypeComponent {
     this.atlas.activeContentType.name = this.name;
     if (this.mode === 'new') {
       this.atlas.saveContentType();
+      this.router.navigate(['/dashboard']).then();
     } else {
       this.atlas.saveContentType(this.atlas.activeContentType.id);
     }
