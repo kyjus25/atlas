@@ -36,7 +36,6 @@ export class CreateContentComponent {
   }
 
   public submit() {
-    console.log(this.formData);
     this.atlas.saveContent(this.contentType.path, this.formData);
     this.router.navigate(['../'], {relativeTo: this.route}).then();
     this.messageService.add({severity: 'success', summary: null, detail: this.contentType.name + ' Saved'});

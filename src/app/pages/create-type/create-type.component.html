@@ -20,9 +20,11 @@
       </div>
     </div>
     <div class="panel" *ngIf="atlas.activeContentType">
-      <div class="panel-header"><b>Fields</b> ({{atlas.activeContentType.fields.length}}) <i class="fas fa-plus" (click)="addField()"></i></div>
+      <div class="panel-header"><b>Fields</b> ({{atlas.activeContentType.fields.length}})
+        <i class="fas fa-plus" (click)="addField()"></i>
+        <i class="fas fa-bolt offset" (click)="generateFields()" *ngIf="atlas.activeContentType.fields.length === 0 && atlas.activeContentType.body.length > 0"></i>
+      </div>
       <div class="panel-content">
-
 <!--        <p-table [columns]="cols" [value]="cars" [reorderableColumns]="true">-->
 <!--          <ng-template pTemplate="header" let-columns>-->
 <!--            <tr>-->

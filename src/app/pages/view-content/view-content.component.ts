@@ -13,6 +13,7 @@ export class ViewContentComponent {
 
   public contentType;
   public data: any[] = [];
+  public code;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,8 +26,9 @@ export class ViewContentComponent {
       if (params && params.id) {
         this.contentType = atlas.contentTypes.find(i => i.id === params.id);
         this.atlas.getContent(params.id).pipe(map(i => i as any[])).subscribe(content => {
-          console.log(content);
+          console.log('DATA', content);
           this.data = content;
+          this.code = JSON.stringify(content, null, '   ');
         });
       }
     });
@@ -34,6 +36,21 @@ export class ViewContentComponent {
 
   public addContent() {
     this.router.navigate(['./add'], {relativeTo: this.route}).then();
+  }
+
+  public submit() {
+    const payload = JSON.parse(this.code);
+    this.atlas.saveContenTypeBody(this.contentType.id, payload);
+    this.messageService.add({severity: 'success', summary: null, detail: 'Endpoint Saved'});
+  }
+
+  public checkMonaco() {
+    try {
+      JSON.parse(this.code);
+    } catch (e) {
+      return true;
+    }
+    return false;
   }
 
   public getKeys(obj) {

@@ -5,10 +5,10 @@ import {Confirmation, ConfirmationService, MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-websites',
-  templateUrl: './websites.component.html',
-  styleUrls: ['./websites.component.css']
+  templateUrl: './frontends.component.html',
+  styleUrls: ['./frontends.component.css']
 })
-export class WebsitesComponent {
+export class FrontendsComponent {
 
   public display = false;
 

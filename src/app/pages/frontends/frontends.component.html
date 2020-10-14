@@ -3,24 +3,17 @@
   <app-header></app-header>
   <div id="wrapper">
     <div class="panel full-width">
-      <div class="panel-header"><b>Websites</b> <i class="fas fa-plus" (click)="display = true"></i></div>
+      <div class="panel-header"><b>Frontends</b> <!--<i class="fas fa-plus" (click)="display = true"></i>--></div>
       <div class="panel-content">
-        <table>
-          <tr *ngIf="atlas.frontends.length === 0">
-            <td>No websites to display. Click the + to add websites.</td>
+        <table *ngIf="atlas.frontends.length === 0">
+          <tr>
+            <td>No frontends to display. Click the + to add websites.</td>
             <td></td>
           </tr>
-          <tr *ngFor="let website of atlas.frontends">
-            <td>
-              <i class="fas fa-globe-americas"></i>
-            </td>
-            <td>{{website}}</td>
-            <td>
-              <i class="fas fa-pencil-alt"></i>
-              <i class="fas fa-trash"></i>
-            </td>
-          </tr>
         </table>
+        <p *ngFor="let website of atlas.frontends">
+          <i class="fas fa-globe-americas"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{website}}
+        </p>
       </div>
     </div>
   </div>

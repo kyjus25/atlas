@@ -239,10 +239,13 @@ article {
 header {
   background-color: white;
   padding: 10px 20px;
+  display: flex;
+  align-items: center;
 }
 
 header #profile {
-  float: right;
+  flex: 1;
+  text-align: right;
 }
 
 header img {
@@ -250,6 +253,12 @@ header img {
   border-radius: 100%;
   display: inline-block;
   vertical-align: middle;
+}
+
+header .ui-multiselect {
+  border: none !important;
+  top: 3px;
+  padding: 0 20px;
 }
 
 #profile span {
@@ -268,23 +277,16 @@ router-outlet + * {
   display: inline-block;
   cursor: pointer;
 }
+
 #site-picker i:first-of-type {
   background-color: #272c33;
   color: white;
   padding: 10px;
 }
-#site-picker i:last-of-type {
-  padding: 10px;
-  position: relative;
-  top: 2px;
-}
-#site-picker span {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-#site-picker span span {
-  padding: 0 40px;
+#site-picker > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .panel {
@@ -457,4 +459,15 @@ code {
   color: crimson;
   background-color: #f1f1f1;
   padding: 5px;
+}
+
+.ui-button {
+  background-color: #272c33 !important;
+  display: inline-block !important;
+  width: auto !important;
+  padding: 0 20px !important;
+  color: white !important;
+  border-radius: 0 !important;
+  border: none !important;
+  font-size: 16px !important;
 }

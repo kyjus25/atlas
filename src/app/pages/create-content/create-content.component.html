@@ -18,9 +18,6 @@
           <textarea *ngIf="field.type === 'textarea'" [(ngModel)]="formData[atlas.camelize(field.label)]" style="width: 100%; height: 320px;"></textarea>
           <ngx-monaco-editor *ngIf="field.type === 'json'" [options]="{theme: 'vs-light', language: 'json'}" [(ngModel)]="formData[atlas.camelize(field.label)]"></ngx-monaco-editor>
         </div>
-        <ng-container *ngIf="contentType.fields.length === 0">
-          <ngx-monaco-editor  [options]="{theme: 'vs-light', language: 'json'}" [(ngModel)]="formData['unconfigured']"></ngx-monaco-editor>
-        </ng-container>
       </div>
     </div>
     <div class="panel flip">

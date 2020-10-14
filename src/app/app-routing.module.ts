@@ -4,14 +4,16 @@ import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {CreateTypeComponent} from './pages/create-type/create-type.component';
 import {CreateFieldComponent} from './pages/create-field/create-field.component';
 import {LoginComponent} from './pages/login/login.component';
-import {WebsitesComponent} from './pages/websites/websites.component';
+import {FrontendsComponent} from './pages/frontends/frontends.component';
 import {CreateContentComponent} from './pages/create-content/create-content.component';
 import {ViewContentComponent} from './pages/view-content/view-content.component';
+import {MediaComponent} from './pages/media/media.component';
 
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: 'websites', component: WebsitesComponent},
+  {path: 'frontends', component: FrontendsComponent},
+  {path: 'media', component: MediaComponent},
   {path: 'content/:id/add', component: CreateContentComponent, data: {type: 'content'}},
   {path: 'content/:id/edit', component: CreateTypeComponent, data: {type: 'content'}},
   {path: 'content/:id', component: ViewContentComponent, data: {type: 'content'}},

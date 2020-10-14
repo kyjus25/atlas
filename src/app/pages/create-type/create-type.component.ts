@@ -63,7 +63,7 @@ export class CreateTypeComponent {
     } else {
       this.atlas.saveContentType(this.atlas.activeContentType.id);
     }
-    this.messageService.add({severity: 'success', summary: null, detail: 'Content Type Saved'});
+    this.messageService.add({severity: 'success', summary: null, detail: 'Endpoint Saved'});
   }
 
   public remove(i) {
@@ -77,5 +77,40 @@ export class CreateTypeComponent {
         this.atlas.deleteContentType(this.atlas.activeContentType.id);
       }
     });
+  }
+
+  public generateFields() {
+    const fields = this.atlas.activeContentType.body[0];
+    Object.keys(fields).forEach(key => {
+      const blacklist = ['id', 'versionId', 'createdOn', 'updatedOn', 'updatedBy', 'createdBy', 'published'];
+      if (!blacklist.includes(key)) {
+        console.log(this.atlas.decamelize(key) + ' - ' + typeof fields[key]);
+        // switch (typeof fields[key]) {
+        //   case 'string':
+        //     // code block
+        //     break;
+        //   case 'number':
+        //     // code block
+        //     break;
+        //   case 'boolean':
+        //     // code block
+        //     break;
+        //   default:
+        //   // code block
+        // }
+        let type: string = typeof fields[key];
+        if (type === 'object') {
+          type = 'json';
+        }
+        this.atlas.activeContentType.fields.push({
+          label: this.atlas.decamelize(key),
+          multiselect: false,
+          options: '',
+          type: type,
+          required: true
+        });
+      }
+    });
+
   }
 }

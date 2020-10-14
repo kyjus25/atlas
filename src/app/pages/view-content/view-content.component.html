@@ -2,14 +2,17 @@
 <article>
   <app-header></app-header>
   <div id="wrapper">
-    <div class="panel full-width">
+    <div class="panel {{contentType.fields && contentType.fields.length > 0 ? 'full-width' : 'flip'}}">
       <div class="panel-header">
         <code>{{atlas.backendUrl}}/services/{{contentType.path}}</code> by {{contentType.creator}}
-        <i [routerLink]="'edit'" class="fas fa-pencil-alt offset"></i>
-        <i (click)="addContent()" class="fas fa-plus"></i>
+        <i [routerLink]="'edit'" class="fas fa-pencil-alt"></i>
+        <i *ngIf="contentType.fields && contentType.fields.length > 0" (click)="addContent()" class="fas fa-plus offset"></i>
       </div>
       <div class="panel-content">
-        <table>
+        <ng-container *ngIf="!contentType.fields || contentType.fields.length === 0">
+          <ngx-monaco-editor style="height: calc(100vh - 200px);" [options]="{theme: 'vs-light', language: 'json'}" [(ngModel)]="code"></ngx-monaco-editor>
+        </ng-container>
+        <table *ngIf="contentType.fields && contentType.fields.length > 0">
           <tr *ngIf="data.length === 0">
             <td>No entries to display. Click the + to add entries.</td>
             <td></td>
@@ -34,6 +37,12 @@
             </td>
           </tr>
         </table>
+      </div>
+    </div>
+    <div class="panel flip" *ngIf="!contentType.fields || contentType.fields.length === 0">
+      <div class="panel-header"><b>Configuration</b></div>
+      <div class="panel-content">
+        <p-button label="Save" (onClick)="submit()" [disabled]="checkMonaco()"></p-button>
       </div>
     </div>
   </div>

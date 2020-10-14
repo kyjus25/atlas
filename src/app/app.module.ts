@@ -18,13 +18,14 @@ import {LoginComponent} from './pages/login/login.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {TableModule} from 'primeng/table';
-import {WebsitesComponent} from './pages/websites/websites.component';
+import {FrontendsComponent} from './pages/frontends/frontends.component';
 import {DialogModule} from 'primeng/dialog';
 import {CreateContentComponent} from './pages/create-content/create-content.component';
 import {ViewContentComponent} from './pages/view-content/view-content.component';
 import {EditorModule} from 'primeng/editor';
 import {CalendarModule, ColorPickerModule, DropdownModule, MultiSelectModule, SpinnerModule} from 'primeng/primeng';
 import {MonacoEditorModule} from 'ngx-monaco-editor';
+import {MediaComponent} from './pages/media/media.component';
 
 @NgModule({
   declarations: [
@@ -34,10 +35,11 @@ import {MonacoEditorModule} from 'ngx-monaco-editor';
     HeaderComponent,
     CreateTypeComponent,
     CreateFieldComponent,
-    WebsitesComponent,
+    FrontendsComponent,
     LoginComponent,
     CreateContentComponent,
-    ViewContentComponent
+    ViewContentComponent,
+    MediaComponent
   ],
   imports: [
     BrowserModule,

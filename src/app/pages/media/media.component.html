@@ -1,0 +1,24 @@
+<app-toolbar></app-toolbar>
+<article>
+  <app-header></app-header>
+  <div id="wrapper">
+    <div class="panel full-width">
+      <div class="panel-header"><b>Media</b> <i class="fas fa-plus" (click)="uploadImage.click()"></i></div>
+      <div class="panel-content">
+        <table *ngIf="atlas.uploads.length === 0">
+          <tr>
+            <td>No uploads to display. Click the + to add uploads.</td>
+            <td></td>
+          </tr>
+        </table>
+        <p *ngFor="let upload of atlas.uploads">
+          <img style="width: auto; height: 50px; display: inline-block; vertical-align: middle; margin-right: 20px;" src="{{atlas.backendUrl}}/uploads/{{upload}}"><span style="display: inline-block; vertical-align: middle;">{{upload}}</span>
+          <i style="display: inline-block; vertical-align: middle; margin-left: 20px; cursor: pointer;" class="fas fa-times" (click)="delete(upload)"></i>
+        </p>
+      </div>
+    </div>
+  </div>
+</article>
+<p-toast></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<input #uploadImage style="display: none" type="file" id="image" (change)="upload($event.target.files, this)"/>

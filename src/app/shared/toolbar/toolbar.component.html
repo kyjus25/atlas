@@ -5,38 +5,40 @@
   </div>
   <div id="navigation">
     <ul>
-      <li>CONTENT TYPES <i class="fas fa-plus" [routerLink]="'/content/new/edit'"></i>
+      <li>ENDPOINTS <i class="fas fa-plus" [routerLink]="'/content/new/edit'"></i>
         <ul>
-          <ng-container *ngIf="atlas.contentTypes.length === 0">
-            <li class="none">No content types created :(</li>
+          <ng-container *ngIf="atlas.getFilteredEndpoints().length === 0">
+            <li class="none">No endpoints created :(</li>
           </ng-container>
-          <ng-container *ngIf="atlas.contentTypes.length > 0">
-            <li *ngFor="let contentType of atlas.contentTypes" [routerLink]="'/content/' + contentType.id">
+          <ng-container *ngIf="atlas.getFilteredEndpoints().length > 0">
+            <li *ngFor="let contentType of atlas.getFilteredEndpoints()" [routerLink]="'/content/' + contentType.id">
               <div class="pill {{contentType.method}}">{{contentType.method}}</div><span>/{{contentType.path}}</span><i class="fas fa-angle-right"></i>
             </li>
           </ng-container>
         </ul>
       </li>
-      <li>SINGLETONS <i class="fas fa-plus" [routerLink]="'/singleton/new/edit'"></i>
-        <ul>
-          <li class="none">No singletons created :(</li>
-        </ul>
-      </li>
+<!--      <li>SINGLETONS <i class="fas fa-plus" [routerLink]="'/singleton/new/edit'"></i>-->
+<!--        <ul>-->
+<!--          <li class="none">No singletons created :(</li>-->
+<!--        </ul>-->
+<!--      </li>-->
       <li>RESOURCES
         <ul>
-          <li><i class="fas fa-cube"></i><span>Media Assets</span><i class="fas fa-angle-right"></i></li>
-          <li><i class="fas fa-recycle"></i><span>Repeater Fields</span><i class="fas fa-angle-right"></i></li>
+          <li [routerLink]="'/media'">
+            <i class="fas fa-cube"></i><span>Media Assets</span><i class="fas fa-angle-right"></i>
+          </li>
+<!--          <li><i class="fas fa-recycle"></i><span>Repeater Fields</span><i class="fas fa-angle-right"></i></li>-->
           <li><i class="fas fa-question"></i><span>Help</span><i class="fas fa-angle-right"></i></li>
         </ul>
       </li>
       <li>SETTINGS
         <ul>
-          <li [routerLink]="'/websites'">
-            <i class="fas fa-server"></i><span>Websites</span><i class="fas fa-angle-right"></i>
+          <li [routerLink]="'/frontends'">
+            <i class="fas fa-server"></i><span>Frontends</span><i class="fas fa-angle-right"></i>
           </li>
-          <li [routerLink]="'/tokens'">
-            <i class="fas fa-key"></i><span>API Tokens</span><i class="fas fa-angle-right"></i>
-          </li>
+<!--          <li [routerLink]="'/tokens'">-->
+<!--            <i class="fas fa-key"></i><span>API Tokens</span><i class="fas fa-angle-right"></i>-->
+<!--          </li>-->
         </ul>
       </li>
     </ul>
