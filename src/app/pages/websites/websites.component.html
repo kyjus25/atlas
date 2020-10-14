@@ -6,15 +6,15 @@
       <div class="panel-header"><b>Websites</b> <i class="fas fa-plus" (click)="display = true"></i></div>
       <div class="panel-content">
         <table>
-          <tr *ngIf="atlas.websites.length === 0">
+          <tr *ngIf="atlas.frontends.length === 0">
             <td>No websites to display. Click the + to add websites.</td>
             <td></td>
           </tr>
-          <tr *ngFor="let website of atlas.websites">
+          <tr *ngFor="let website of atlas.frontends">
             <td>
               <i class="fas fa-globe-americas"></i>
             </td>
-            <td>{{website.name}}</td>
+            <td>{{website}}</td>
             <td>
               <i class="fas fa-pencil-alt"></i>
               <i class="fas fa-trash"></i>

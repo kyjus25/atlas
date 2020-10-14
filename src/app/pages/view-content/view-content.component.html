@@ -1,0 +1,42 @@
+<app-toolbar></app-toolbar>
+<article>
+  <app-header></app-header>
+  <div id="wrapper">
+    <div class="panel full-width">
+      <div class="panel-header">
+        <code>{{atlas.backendUrl}}/services/{{contentType.path}}</code> by {{contentType.creator}}
+        <i [routerLink]="'edit'" class="fas fa-pencil-alt offset"></i>
+        <i (click)="addContent()" class="fas fa-plus"></i>
+      </div>
+      <div class="panel-content">
+        <table>
+          <tr *ngIf="data.length === 0">
+            <td>No entries to display. Click the + to add entries.</td>
+            <td></td>
+          </tr>
+          <tr *ngIf="data.length > 0">
+            <th>Published</th>
+            <th>Created By</th>
+            <th>Created On</th>
+            <th>Updated By</th>
+            <th>Updated On</th>
+            <th>Actions</th>
+          </tr>
+          <tr *ngFor="let item of data">
+            <td>{{item['published']}}</td>
+            <td>{{item['createdBy']}}</td>
+            <td>{{item['createdOn'] | date}}</td>
+            <td>{{item['updatedBy']}}</td>
+            <td>{{item['updatedOn'] | date}}</td>
+            <td>
+              <i class="fas fa-pencil-alt"></i>
+              <i class="fas fa-trash"></i>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</article>
+<p-toast></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

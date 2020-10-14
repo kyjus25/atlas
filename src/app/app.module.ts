@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
+import {NgModule} from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AtlasService} from './shared/atlas.service';
@@ -20,9 +19,12 @@ import {HttpClientModule} from '@angular/common/http';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {TableModule} from 'primeng/table';
 import {WebsitesComponent} from './pages/websites/websites.component';
-import {TokensComponent} from './pages/tokens/tokens.component';
 import {DialogModule} from 'primeng/dialog';
 import {CreateContentComponent} from './pages/create-content/create-content.component';
+import {ViewContentComponent} from './pages/view-content/view-content.component';
+import {EditorModule} from 'primeng/editor';
+import {CalendarModule, ColorPickerModule, DropdownModule, MultiSelectModule, SpinnerModule} from 'primeng/primeng';
+import {MonacoEditorModule} from 'ngx-monaco-editor';
 
 @NgModule({
   declarations: [
@@ -33,9 +35,9 @@ import {CreateContentComponent} from './pages/create-content/create-content.comp
     CreateTypeComponent,
     CreateFieldComponent,
     WebsitesComponent,
-    TokensComponent,
     LoginComponent,
-    CreateContentComponent
+    CreateContentComponent,
+    ViewContentComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,14 @@ import {CreateContentComponent} from './pages/create-content/create-content.comp
     BrowserAnimationsModule,
     ConfirmDialogModule,
     TableModule,
-    DialogModule
+    DialogModule,
+    EditorModule,
+    SpinnerModule,
+    ColorPickerModule,
+    DropdownModule,
+    CalendarModule,
+    MonacoEditorModule.forRoot(),
+    MultiSelectModule,
   ],
   providers: [AtlasService, MessageService, ConfirmationService],
   bootstrap: [AppComponent]

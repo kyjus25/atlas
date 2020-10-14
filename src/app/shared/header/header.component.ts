@@ -7,7 +7,15 @@ import {AtlasService} from '../atlas.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  public mappedFrontends = [];
   constructor(
     public atlas: AtlasService
-  ) {}
+  ) {
+    this.atlas.frontends.forEach(i => {
+      this.mappedFrontends.push({
+        label: i,
+        value: i
+      });
+    });
+  }
 }

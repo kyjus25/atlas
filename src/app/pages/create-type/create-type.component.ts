@@ -12,8 +12,15 @@ export class CreateTypeComponent {
 
   public mode = 'new';
 
-  public name;
-  public icon = 'Select Icon';
+  public path;
+  public methods = [
+    {label: 'FULL', value: 'full'},
+    {label: 'GET', value: 'get'},
+    {label: 'PULL', value: 'pull'},
+    {label: 'POST', value: 'post'},
+    {label: 'DELETE', value: 'delete'},
+  ];
+  public method = 'full';
 
   constructor(
     private route: ActivatedRoute,
@@ -27,10 +34,14 @@ export class CreateTypeComponent {
         console.log('id', params.id);
         console.log('all content types', this.atlas.contentTypes);
         this.atlas.activeContentType = this.atlas.contentTypes.find(ct => ct.id === params.id);
-        console.log('active', this.atlas.activeContentType);
-        this.name = this.atlas.activeContentType.name;
-        this.icon = this.atlas.activeContentType.icon;
-        this.mode = 'edit';
+        if (this.atlas.activeContentType) {
+          console.log('active', this.atlas.activeContentType);
+          this.path = this.atlas.activeContentType.path;
+          this.method = this.atlas.activeContentType.method;
+          this.mode = 'edit';
+        } else {
+          this.router.navigate(['/dashboard']).then();
+        }
       } else {
         this.atlas.activeContentType = this.atlas.newContentType;
       }
@@ -42,8 +53,10 @@ export class CreateTypeComponent {
   }
 
   public submit() {
-    this.atlas.activeContentType.icon = this.icon;
-    this.atlas.activeContentType.name = this.name;
+    this.atlas.activeContentType.method = this.method;
+    this.atlas.activeContentType.path = this.path;
+    this.atlas.activeContentType.creator = this.atlas.principal.user;
+    this.atlas.activeContentType.usedBy = this.atlas.frontends[0];
     if (this.mode === 'new') {
       this.atlas.saveContentType();
       this.router.navigate(['/dashboard']).then();
@@ -51,6 +64,10 @@ export class CreateTypeComponent {
       this.atlas.saveContentType(this.atlas.activeContentType.id);
     }
     this.messageService.add({severity: 'success', summary: null, detail: 'Content Type Saved'});
+  }
+
+  public remove(i) {
+    this.atlas.activeContentType.fields.splice(i, 1);
   }
 
   public delete() {

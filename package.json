@@ -26,6 +26,7 @@
     "core-js": "^2.5.4",
     "decimal.js-light": "~2.5.0",
     "moment": "~2.24.0",
+    "ngx-monaco-editor": "~8.0.0",
     "primeicons": "~2.0.0",
     "quill": "~1.3.6",
     "rxjs": "~6.4.0",

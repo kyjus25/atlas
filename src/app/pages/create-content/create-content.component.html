@@ -2,25 +2,34 @@
 <article>
   <app-header></app-header>
   <div id="wrapper">
-    <div class="panel full-width">
-      <div class="panel-header"><b>Websites</b> <i class="fas fa-plus"></i></div>
+    <div class="panel flip">
+      <div class="panel-header"><b>{{mode === 'new' ? 'New' : 'Edit'}} Entry</b></div>
       <div class="panel-content">
-        <table>
-          <tr *ngIf="atlas.websites.length === 0">
-            <td>No websites to display. Click the + to add websites.</td>
-            <td></td>
-          </tr>
-          <tr *ngFor="let website of atlas.websites">
-            <td>
-              <i class="fas fa-globe-americas"></i>
-            </td>
-            <td>{{website.name}}</td>
-            <td>
-              <i class="fas fa-pencil-alt"></i>
-              <i class="fas fa-trash"></i>
-            </td>
-          </tr>
-        </table>
+        <div *ngFor="let field of contentType.fields">
+          <b>{{field.label}}</b>
+          <br *ngIf="field.type === 'number' || 'color'">
+          <input *ngIf="field.type === 'string'" [(ngModel)]="formData[atlas.camelize(field.label)]" type="text" placeholder="">
+          <p-editor *ngIf="field.type === 'wysiwyg'" [(ngModel)]="formData[atlas.camelize(field.label)]" [style]="{'height':'320px'}"></p-editor>
+          <p-spinner *ngIf="field.type === 'number'" [(ngModel)]="formData[atlas.camelize(field.label)]"></p-spinner>
+          <p-colorPicker *ngIf="field.type === 'color'" [(ngModel)]="formData[atlas.camelize(field.label)]"></p-colorPicker>
+          <p-dropdown *ngIf="field.type === 'select'" [options]="getOptions(field.options)" [(ngModel)]="formData[atlas.camelize(field.label)]"></p-dropdown>
+          <p-inputSwitch *ngIf="field.type === 'boolean'" [(ngModel)]="formData[atlas.camelize(field.label)]"></p-inputSwitch>
+          <p-calendar *ngIf="field.type === 'date'" [(ngModel)]="formData[atlas.camelize(field.label)]"></p-calendar>
+          <textarea *ngIf="field.type === 'textarea'" [(ngModel)]="formData[atlas.camelize(field.label)]" style="width: 100%; height: 320px;"></textarea>
+          <ngx-monaco-editor *ngIf="field.type === 'json'" [options]="{theme: 'vs-light', language: 'json'}" [(ngModel)]="formData[atlas.camelize(field.label)]"></ngx-monaco-editor>
+        </div>
+        <ng-container *ngIf="contentType.fields.length === 0">
+          <ngx-monaco-editor  [options]="{theme: 'vs-light', language: 'json'}" [(ngModel)]="formData['unconfigured']"></ngx-monaco-editor>
+        </ng-container>
+      </div>
+    </div>
+    <div class="panel flip">
+      <div class="panel-header"><b>Configuration</b></div>
+      <div class="panel-content">
+        <b>Published</b><br>
+        <p-inputSwitch [(ngModel)]="formData['published']"></p-inputSwitch><br><br>
+        <div class="btn" (click)="submit()">Save</div>
+        <div *ngIf="mode === 'edit'" class="btn red" (click)="delete()">Delete</div>
       </div>
     </div>
   </div>

@@ -2,12 +2,13 @@
   <div id="site-picker">
     <span>
       <i class="fas fa-server"></i>
-      <span>{{atlas.websites.length > 0 ? atlas.websites[0].name : 'No Websites' }}</span>
+      <span>{{atlas.frontends.length > 0 ? atlas.frontends[0] : 'No Websites' }}</span>
+      <p-multiSelect appendTo="body" [options]="mappedFrontends" [(ngModel)]="atlas.activeFrontend"></p-multiSelect>
       <i class="fas fa-caret-down"></i>
     </span>
   </div>
   <div id="profile" *ngIf="atlas.principal">
-    <span>{{atlas.principal.firstName}} {{atlas.principal.lastName}} <i class="fas fa-caret-down"></i></span>
+    <span>{{atlas.principal.user}} <i class="fas fa-caret-down"></i></span>
     <img src="http://www.gravatar.com/avatar/8192a242b1248cdfe6dd54dc3608d1c3?s=100">
   </div>
 </header>

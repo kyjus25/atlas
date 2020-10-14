@@ -14,21 +14,17 @@ export interface AuthReturn {
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  public username;
+  public username = this.atlas.creators[0];
   public password;
 
   constructor(
-    private atlas: AtlasService,
+    public atlas: AtlasService,
     private messageService: MessageService,
     private router: Router
   ) {}
 
   public submit() {
-    this.atlas.auth(this.username, this.password).pipe(map(dto => dto as AuthReturn)).subscribe(principal => {
-      this.atlas.setPrincipal(principal);
-      this.router.navigate(['/dashboard']).then();
-    }, error => {
-      this.messageService.add({severity: 'error', summary: error.status, detail: error.statusText});
-    });
+    this.atlas.setPrincipal({user: this.username, token: this.username});
+    this.router.navigate(['/dashboard']).then();
   }
 }

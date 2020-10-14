@@ -6,25 +6,28 @@ import {first} from 'rxjs/operators';
 
 @Injectable()
 export class AtlasService {
-  public backendUrl = 'http://localhost';
+  public backendUrl = window['env']['backendUrl'];
+  public creators = window['env']['creators'].split(',');
+  public frontends = window['env']['frontends'].split(',');
 
   public tokens = [];
-  public websites = [];
   public contentTypes = [];
   public singletons = [];
+
+  public activeFrontend = [this.frontends[0]];
 
   public principal;
   public loading = true;
 
   public blankContentType = {
-    name: '',
-    icon: '',
+    path: '',
+    method: '',
     fields: []
   };
 
   public newContentType = {
-    name: '',
-    icon: '',
+    path: '',
+    method: '',
     fields: []
   };
 
@@ -116,14 +119,30 @@ export class AtlasService {
       })
     };
     if (id) {
-      this.http.put(this.backendUrl + '/services/contentType/' + id, this.activeContentType, httpOptions).subscribe(res => {
-        this.getData();
+      const payload = {
+        action: 'updateFields',
+        fields: this.activeContentType.fields,
+        method: this.activeContentType.method,
+        path: this.activeContentType.path
+      };
+      this.http.post(this.backendUrl + '/data', payload, httpOptions).subscribe(res => {
+        this.contentTypes = res as any[];
       });
     } else {
-      this.http.post(this.backendUrl + '/services/contentType', this.activeContentType, httpOptions).subscribe(res => {
-        this.newContentType = this.blankContentType;
-        this.getData();
+      const payload = {
+        action: 'add',
+        body: [],
+        fields: this.activeContentType.fields,
+        method: this.activeContentType.method,
+        path: this.activeContentType.path,
+        creator: this.principal.user,
+        usedBy: this.frontends[0],
+      };
+      console.log(payload);
+      this.http.post(this.backendUrl + '/data', payload).subscribe(res => {
+        this.contentTypes = res as any[];
       });
+      this.newContentType = this.blankContentType;
     }
   }
 
@@ -134,7 +153,12 @@ export class AtlasService {
         authtoken: this.principal.token
       })
     };
-    this.http.delete(this.backendUrl + '/services/contentType/' + id, httpOptions).subscribe(res => {
+    const payload = {
+      action: 'delete',
+      method: this.contentTypes.find(i => i.id === id).method,
+      path: this.contentTypes.find(i => i.id === id).path,
+    };
+    this.http.post(this.backendUrl + '/data/', payload, httpOptions, ).subscribe(res => {
       this.getData();
       this.router.navigate(['/dashboard']).then();
     });
@@ -149,14 +173,40 @@ export class AtlasService {
         })
       };
       combineLatest(
-        this.http.get(this.backendUrl + '/services/website', httpOptions),
-        this.http.get(this.backendUrl + '/services/contentType', httpOptions)
-      ).subscribe(([websites, contentTypes]) => {
+        this.http.get(this.backendUrl + '/data', httpOptions)
+      ).subscribe(([contentTypes]) => {
         console.log('contentTypes', contentTypes);
-        console.log('websites', websites);
         this.contentTypes = contentTypes as any[];
-        this.websites = websites as any[];
         this.loading = false;
+      }, error => {
+        alert('The backend did not respond. Is it running?');
+      });
+    }
+  }
+
+  public getContent(id) {
+    if (this.principal && this.principal.token) {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          authtoken: this.principal.token
+        })
+      };
+      const slug = this.contentTypes.find(i => i.id === id).path;
+      return this.http.get(this.backendUrl + '/services/' + slug, httpOptions);
+    }
+  }
+
+  public saveContent(path, payload) {
+    if (this.principal && this.principal.token) {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          authtoken: this.principal.token
+        })
+      };
+      this.http.post(this.backendUrl + '/services/' + path, payload, httpOptions).subscribe(() => {
+        this.getData();
       });
     }
   }
@@ -185,5 +235,11 @@ export class AtlasService {
     } catch (e) {
       return;
     }
+  }
+
+  public camelize(str) {
+    return str.replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) => {
+      return index === 0 ? word.toLowerCase() : word.toUpperCase();
+    }).replace(/\s+/g, '');
   }
 }

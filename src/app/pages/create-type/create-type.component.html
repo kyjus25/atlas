@@ -7,13 +7,12 @@
       <div class="panel-content">
         <div>
           <span><i class="fas fa-tag"></i></span>
-          <input [(ngModel)]="name" type="text" placeholder="Name">
+          <span style="margin-left: 5px">/services/</span><input style="width: calc(100% - 100px); margin-left: 5px" [(ngModel)]="path" type="text" placeholder="path">
         </div>
         <div>
-          <span><i class="{{icon !== 'Select Icon' ? icon : 'fas fa-question'}}"></i></span>
-          <select [(ngModel)]="icon">
-            <option>Select Icon</option>
-            <option>fas fa-copy</option>
+          <span><i class="fas fa-map"></i></span>
+          <select [(ngModel)]="method">
+            <option value="{{item.value}}" *ngFor="let item of methods">{{item.label}}</option>
           </select>
         </div>
         <div class="btn" (click)="submit()">Save</div>
@@ -50,7 +49,7 @@
             <td>No fields to display. Click the + to add fields.</td>
             <td></td>
           </tr>
-          <tr *ngFor="let field of atlas.activeContentType.fields">
+          <tr *ngFor="let field of atlas.activeContentType.fields; let i = index">
             <td>
               <span *ngIf="field.type === 'string'" class="string">Ab</span>
               <span *ngIf="field.type === 'number'" class="number">123</span>
@@ -67,8 +66,8 @@
             <td>{{field.label}}</td>
             <td>{{field.required ? 'Required' : 'Not Required'}}</td>
             <td>
-              <i class="fas fa-pencil-alt"></i>
-              <i class="fas fa-trash"></i>
+<!--              <i class="fas fa-pencil-alt"></i>-->
+              <i class="fas fa-trash" (click)="remove(i)"></i>
             </td>
           </tr>
         </table>

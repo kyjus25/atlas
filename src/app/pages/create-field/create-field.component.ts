@@ -27,6 +27,8 @@ export class CreateFieldComponent {
     if (this.label && this.label !== '') {
       this.atlas.activeContentType.fields.push({
         label: this.label,
+        multiselect: this.multiselect,
+        options: this.options.split('\n'),
         type: this.activeFieldType,
         required: this.required
       });

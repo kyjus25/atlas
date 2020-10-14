@@ -1,5 +1,8 @@
 <div id="toolbar">
-  <h1 id="title" [routerLink]="'/'">Atlas</h1>
+  <div id="title">
+    <img src="/assets/logo.png">
+    <h1 [routerLink]="'/'">JumbaLiar</h1>
+  </div>
   <div id="navigation">
     <ul>
       <li>CONTENT TYPES <i class="fas fa-plus" [routerLink]="'/content/new/edit'"></i>
@@ -9,7 +12,7 @@
           </ng-container>
           <ng-container *ngIf="atlas.contentTypes.length > 0">
             <li *ngFor="let contentType of atlas.contentTypes" [routerLink]="'/content/' + contentType.id">
-              <i class="{{contentType.icon}}"></i><span>{{contentType.name}}</span><i class="fas fa-angle-right"></i>
+              <div class="pill {{contentType.method}}">{{contentType.method}}</div><span>/{{contentType.path}}</span><i class="fas fa-angle-right"></i>
             </li>
           </ng-container>
         </ul>

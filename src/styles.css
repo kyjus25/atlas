@@ -62,12 +62,14 @@ app-login .panel {
   margin-left: 10px;
 }
 
-#wrapper .panel:nth-of-type(1) {
+#wrapper .panel:nth-of-type(1),
+#wrapper .panel.flip:nth-of-type(2){
   width: 300px;
   margin-right: 0;
 }
 
-#wrapper .panel:nth-of-type(2) {
+#wrapper .panel:nth-of-type(2),
+#wrapper .panel.flip:nth-of-type(1) {
   width: calc(100% - 300px - 65px);
 }
 
@@ -84,7 +86,7 @@ app-login .panel {
   display: block;
   margin-right: 20px;
 }
-#wrapper .panel.full-width table tr {
+#wrapper .panel.full-width .panel-content > table tr {
   display: table-row;
   width: auto;
   border: none;
@@ -92,27 +94,30 @@ app-login .panel {
   cursor: default;
 }
 
-#wrapper .panel.full-width table tr:hover {
+#wrapper .panel.full-width .panel-content > table tr:hover {
   background: none;
 }
 
-#wrapper .panel.full-width table td {
+#wrapper .panel.full-width .panel-content > table td {
   display: table-cell;
   color: black;
   text-align: left;
 }
 
-#wrapper .panel.full-width table td:first-of-type {
-  width: 30px;
+#wrapper .panel.full-width .panel-content > table td:first-of-type {
   text-align: center;
 }
 
-#wrapper .panel.full-width table td:last-of-type {
+#wrapper .panel.full-width .panel-content > table td.icon {
+  width: 30px;
+}
+
+#wrapper .panel.full-width .panel-content > table td:last-of-type {
   text-align: right;
 }
 
 
-#wrapper .panel.full-width table td i {
+#wrapper .panel.full-width .panel-content > table td i {
   color: black;
 }
 
@@ -129,6 +134,17 @@ app-login .panel {
   padding: 10px;
   border-bottom: 1px solid #4e4e52;
   cursor: pointer;
+}
+
+#title h1 {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#title img {
+  display: inline-block;
+  vertical-align: middle;
+  width: 40px;
 }
 
 #toolbar {
@@ -291,6 +307,10 @@ router-outlet + * {
   margin-top: 5px;
 }
 
+.panel-header i.offset {
+  right: 3.25rem;
+}
+
 .panel-header i:hover {
   opacity: 0.5;
   cursor: pointer;
@@ -300,23 +320,23 @@ router-outlet + * {
   padding: 1.25rem;
 }
 
-.panel table {
+.panel .panel-content > table {
   width: 100%;
 }
-.panel table td {
+.panel .panel-content > table td {
   padding: 5px 0;
 }
-.panel table td:last-of-type {
+.panel .panel-content > table td:last-of-type {
   text-align: right;
 }
-.panel table td:last-of-type i {
+.panel .panel-content > table td:last-of-type i {
   margin-left: 20px;
 }
-.panel table td:last-of-type i:hover {
+.panel .panel-content > table td:last-of-type i:hover {
   opacity: 0.5;
   cursor: pointer;
 }
-.panel table td:first-of-type > * {
+.panel .panel-content > table td:first-of-type > * {
   color: white;
   display: inline-block;
   width: 50px;
@@ -326,19 +346,19 @@ router-outlet + * {
   padding: 7px 0;
 }
 
-.panel table td:first-of-type > span {
+.panel .panel-content > table td:first-of-type > span {
   font-weight: bold;
   font-size: 14px;
   letter-spacing: 1px;
   padding: 5px;
 }
 
-.panel:first-of-type table tbody {
+.panel:first-of-type .panel-content > table tbody {
   display: flex;
   flex-wrap: wrap;
 }
 
-.panel:first-of-type table tr {
+.panel:first-of-type .panel-content > table tr {
   display: inline-block;
   width: 50%;
   border: 1px solid grey;
@@ -347,34 +367,34 @@ router-outlet + * {
   cursor: pointer;
 }
 
-.panel:first-of-type table tr:hover {
+.panel:first-of-type .panel-content > table tr:hover {
   background-color: rgba(0,255,0, 0.03);
 }
 
-.panel:first-of-type table tr.active {
+.panel:first-of-type .panel-content > table tr.active {
   background-color: rgba(0,255,0, 0.2)
 }
 
-.panel:first-of-type table tr:nth-of-type(10),
-.panel:first-of-type table tr:nth-of-type(11) {
+.panel:first-of-type .panel-content > table tr:nth-of-type(10),
+.panel:first-of-type .panel-content > table tr:nth-of-type(11) {
   border-bottom: 1px solid grey;
 }
 
-.panel:first-of-type table tr:nth-of-type(even) {
+.panel:first-of-type .panel-content > table tr:nth-of-type(even) {
   border-left: none;
 }
 
-.panel:first-of-type table td {
+.panel:first-of-type .panel-content > table td {
   display: block;
   text-align: center;
 }
 
-.panel:first-of-type table td:last-of-type {
+.panel:first-of-type .panel-content > table td:last-of-type {
   font-size: 12px;
   color: grey;
 }
 
-.panel-content div {
+.panel-content > div {
   width: 100%;
   margin-bottom: 20px;
 }
@@ -412,14 +432,29 @@ p-inputswitch > div {
   padding: 5px;
 }
 
-.string { background-color: #FFB500; }
+.string, .pill.full { background-color: #FFB500; }
 .number { background-color: #CA644D; }
 .wysiwyg { background-color: #FF9201; }
 .color { background-color: #F9B194; }
-.select { background-color: #FB4601; }
-.boolean { background-color: #6ABA06; }
-.image { background-color: #B981D5; }
-.json { background-color: #3C8C98; }
+.select, .pill.delete { background-color: #FB4601; }
+.boolean, .pill.get { background-color: #6ABA06; }
+.image, .pill.put { background-color: #B981D5; }
+.json, .pill.post { background-color: #3C8C98; }
 .textarea { background-color: #FF9201; }
 .relation { background-color: #1E5DE7; }
 .date { background-color: #1C8EE2; }
+
+.pill {
+  color: white;
+  padding: 2px 10px;
+  border-radius: 10px;
+  min-width: 55px;
+  text-align: center;
+  font-size: 12px;
+}
+
+code {
+  color: crimson;
+  background-color: #f1f1f1;
+  padding: 5px;
+}
