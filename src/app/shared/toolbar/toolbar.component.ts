@@ -11,4 +11,8 @@ export class ToolbarComponent {
     public atlas: AtlasService
   ) {}
 
+  public help() {
+    alert('I have no help to give you.');
+  }
+
 }
