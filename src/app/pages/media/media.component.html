@@ -12,7 +12,9 @@
           </tr>
         </table>
         <p *ngFor="let upload of atlas.uploads">
-          <img style="width: auto; height: 50px; display: inline-block; vertical-align: middle; margin-right: 20px;" src="{{atlas.backendUrl}}/uploads/{{upload}}"><span style="display: inline-block; vertical-align: middle;">{{upload}}</span>
+          <a target="_blank" href="{{atlas.backendUrl}}/uploads/{{upload}}">
+            <img style="width: auto; height: 50px; display: inline-block; vertical-align: middle; margin-right: 20px;" src="{{atlas.backendUrl}}/uploads/{{upload}}">
+          </a><span style="display: inline-block; vertical-align: middle;">{{upload}}</span>
           <i style="display: inline-block; vertical-align: middle; margin-left: 20px; cursor: pointer;" class="fas fa-times" (click)="delete(upload)"></i>
         </p>
       </div>
